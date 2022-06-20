@@ -1,0 +1,14 @@
+{
+  "name": "test-mongoose",
+  "version": "1.0.0",
+  "description": "Test repo for a mongoose connector to pass to the express app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongoose"
+  ],
+  "author": "Tom Johnsen",
+  "license": "ISC"
+}
