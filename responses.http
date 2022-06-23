@@ -1,0 +1,31 @@
+@hostname = server.tomsdata.no
+@port = 3001
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+GET http://{{host}}
+
+###
+
+# @name getCommentByID
+GET http://{{host}}/{{commentID}}
+
+###
+
+# @name newComment
+POST http://{{host}}
+Content-Type: {{contentType}}
+
+{"comment":"hello dr ømma", "additional":"really real doctor"}
+
+###
+
+@commentID = {{newComment.response.body.$._id}}
+PUT http://{{host}}/{{commentID}}
+Content-Type: application/json
+
+{"comment":"new comment"}
+
+###
+
+DELETE http://{{host}}/{{commentID}}
