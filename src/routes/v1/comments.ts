@@ -2,7 +2,7 @@ import { isValidObjectId } from "mongoose"
 import express from "express"
 import createError from "http-errors"
 
-import commentsModel from "../schemas/comments"
+import commentsModel from "../../schemas/v1/comments"
 
 const router = express.Router()
 
@@ -19,12 +19,10 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
     try {
-        if (!isValidObjectId(req.params.id))
-            next(createError(400, `ID ${req.params.id} is invalid`))
+        if (!isValidObjectId(req.params.id)) next(createError(400, `ID ${req.params.id} is invalid`))
         else {
             const result = await commentsModel.findById(req.params.id)
-            if (!result)
-                next(createError(404, `ID ${req.params.id} was not found`))
+            if (!result) next(createError(404, `ID ${req.params.id} was not found`))
             else res.status(200).send(result)
         }
     } catch (error) {
@@ -45,18 +43,13 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
     try {
         let result
-        if (!isValidObjectId(req.params.id))
-            next(createError(400, `ID ${req.params.id} is invalid`))
+        if (!isValidObjectId(req.params.id)) next(createError(400, `ID ${req.params.id} is invalid`))
         else
-            result = await commentsModel.findByIdAndUpdate(
-                req.params.id,
-                req.body,
-                {
-                    runValidators: true,
-                    new: true,
-                    useFindAndModify: false
-                }
-            )
+            result = await commentsModel.findByIdAndUpdate(req.params.id, req.body, {
+                runValidators: true,
+                new: true,
+                useFindAndModify: false
+            })
 
         if (!result) next(createError(404, `ID ${req.params.id} was not found`))
         else res.status(200).send(result)
@@ -68,8 +61,7 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
     try {
         let result
-        if (!isValidObjectId(req.params.id))
-            next(createError(400, `ID ${req.params.id} is invalid`))
+        if (!isValidObjectId(req.params.id)) next(createError(400, `ID ${req.params.id} is invalid`))
         else
             result = await commentsModel.findByIdAndDelete(req.params.id, {
                 useFindAndModify: false

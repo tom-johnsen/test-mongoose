@@ -1,31 +1,22 @@
-@hostname = server.tomsdata.no
-@port = 3001
-@host = {{hostname}}:{{port}}
+@hostname = http://server.tomsdata.no:3001/api/v1/comments
 @contentType = application/json
 
-GET http://{{host}}
-
+GET {{hostname}}
 ###
-
 # @name getCommentByID
-GET http://{{host}}/{{commentID}}
+GET {{hostname}}/{{commentID}}
 
 ###
-
 # @name newComment
-POST http://{{host}}
+POST {{hostname}}
 Content-Type: {{contentType}}
 
 {"comment":"hello dr ømma", "additional":"really real doctor"}
-
 ###
-
 @commentID = {{newComment.response.body.$._id}}
-PUT http://{{host}}/{{commentID}}
+PUT {{hostname}}/{{commentID}}
 Content-Type: application/json
 
-{"comment":"new comment"}
-
+{"comment":"new commmment"}
 ###
-
-DELETE http://{{host}}/{{commentID}}
+DELETE {{hostname}}/{{commentID}}
